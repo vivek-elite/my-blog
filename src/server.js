@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 const withDB = async (operations, res) => {
     try {
         const client = await MongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true });
-        const db = client.db('articles');
+        const db = client.db('my-blog');
 
         await operations(db);
 
@@ -110,7 +110,7 @@ app.get('/hello/:name', (req, res) => res.send(`Hello ${req.params.name}!`));
 app.post('/hello', (req, res) => res.send(`Hello ${req.body.name}!`));
 
 app.get('*', (res,req) => {
-    res.sendFile(path.join(__dirname + '/build/index.html'))
+    res.sendfile(path.join(__dirname + '/build/index.html'));
 });
 
 app.listen(8000, () => console.log('Listening on port 8000'));
